@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EnhancedView</string>
+
+
+    <string name="html_test"><![CDATA[<b><font color=#727af2>HTML</font></b>]]><![CDATA[<b><font color=#ffda2f> Text</font></b>]]><![CDATA[<font color=#d308ff> Test</font>]]></string>
+
+</resources>
