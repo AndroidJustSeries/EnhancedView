@@ -73,7 +73,7 @@ public class EnhancedTextView extends AppCompatTextView {
     @Override
     protected void onDraw(Canvas canvas) {
         if (getBackground() == null) {
-            mDrawableHelper.drawBg(canvas,isPressed(),isSelected());
+            mDrawableHelper.drawBg(canvas,getWidth(),getHeight(),isPressed(),isSelected());
         }
         super.onDraw(canvas);
     }

@@ -59,13 +59,13 @@ public class DrawableHelper {
         mMainPaint.setAntiAlias(true);
     }
 
-    public void drawBg(Canvas canvas, boolean isPressed, boolean isSelected) {
+    public void drawBg(Canvas canvas, int w, int h, boolean isPressed, boolean isSelected) {
         mStrokePadding = mStrokeWidth / 2;
         RectF rectF = new RectF(
                 mStrokePadding, // left
                 mStrokePadding, // top
-                canvas.getWidth() - mStrokePadding, // right
-                canvas.getHeight() - mStrokePadding  // bottom
+                w - mStrokePadding, // right
+                h - mStrokePadding  // bottom
         );
         if (isSelected) {
             canvas.drawRoundRect(rectF,mRoundRadius,mRoundRadius,mBGSelectPaint);
