@@ -50,6 +50,10 @@ public class EnhancedTextView extends AppCompatTextView {
         mDrawableHelper.mTextColorNormal = ta.getColor(R.styleable.EnhancedView_textColorNormal,mDrawableHelper.mTextColorNormal);
         mDrawableHelper.mTextColorSelected = ta.getColor(R.styleable.EnhancedView_textColorSelected,mDrawableHelper.mTextColorSelected);
 
+        boolean isSelected = ta.getBoolean(R.styleable.EnhancedView_selected,false);
+
+        setSelected(isSelected);
+
         String htmlText = ta.getString(R.styleable.EnhancedView_html);
         if (!TextUtils.isEmpty(htmlText)) {
             setText(Html.fromHtml(htmlText));
@@ -69,6 +73,63 @@ public class EnhancedTextView extends AppCompatTextView {
         }
     }
 
+    public int getStrokeNormalColor() {
+        return mDrawableHelper.mStrokeColorNormal;
+    }
+
+    public int getStrokeSelectedColor() {
+        return mDrawableHelper.mStrokeColorSelected;
+    }
+
+    public void setStrokeColor(int normal,int selected) {
+        mDrawableHelper.mStrokeColorNormal = normal;
+        mDrawableHelper.mStrokeColorSelected = selected;
+        mDrawableHelper.init();
+        invalidate();
+    }
+
+    public void setStrokeWidth(int w) {
+        mDrawableHelper.mStrokeWidth = w;
+        mDrawableHelper.init();
+        invalidate();
+    }
+
+    public int getBackgroundNormalColor() {
+        return mDrawableHelper.mBGColorNormal;
+    }
+
+    public int getBackgroundSelectedColor() {
+        return mDrawableHelper.mBGColorSelected;
+    }
+
+    public void setBackgroundColor(int normal,int selected) {
+        mDrawableHelper.mBGColorNormal = normal;
+        mDrawableHelper.mBGColorSelected = selected;
+        mDrawableHelper.init();
+        invalidate();
+    }
+
+    public void setRoundRadius(int radius) {
+        mDrawableHelper.mRoundRadius = radius;
+        invalidate();
+    }
+
+    public int getTextNormalColor() {
+        return mDrawableHelper.mTextColorNormal;
+    }
+
+    public int getTextSelectedColor() {
+        return mDrawableHelper.mTextColorSelected;
+    }
+
+    public void setTextColor(int normal, int selected) {
+        mDrawableHelper.mTextColorNormal = normal;
+        mDrawableHelper.mTextColorSelected = selected;
+        ColorStateList textColor = mDrawableHelper.getTextColor();
+        if (textColor != null ){
+            setTextColor(mDrawableHelper.getTextColor());
+        }
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {

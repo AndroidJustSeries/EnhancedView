@@ -12,6 +12,9 @@
         <attr name="BgColorSelected" format="color" />
         <attr name="BgRadius" format="dimension" />
         <attr name="StrokeWidth" format="dimension" />
+
+        <attr name="selected" format="boolean" />
+
         <attr name="cfont">
             <enum name="light" value="1"></enum>
             <enum name="normal" value="2"></enum>

@@ -68,12 +68,164 @@
         android:textColor="#000000"
         android:textSize="16sp"
         app:BgRadius="5dp"
-        app:html="@string/html_test"
         app:BgStrokeColorNormal="#d8d8d8"
         app:BgStrokeColorSelected="#727af2"
         app:StrokeWidth="1dp"
+        app:html="@string/html_test"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:textColorNormal="#d8d8d8"
         app:textColorSelected="#727af2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.kds.just.enhancedview.EnhancedTextView
+            android:id="@+id/enhanced_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="15dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="15dp"
+            android:text="Normal state"
+            android:textSize="16sp"
+            app:BgColorNormal="#795548"
+            app:BgColorSelected="#009688"
+            app:BgRadius="15dp"
+            app:BgStrokeColorNormal="#d8d8d8"
+            app:BgStrokeColorSelected="#ffeb3b"
+            app:StrokeWidth="1dp"
+            app:textColorNormal="#d8d8d8"
+            app:textColorSelected="#333333" />
+
+        <com.kds.just.enhancedview.EnhancedTextView
+            android:id="@+id/enhanced_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="15dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="15dp"
+            android:text="Selected state"
+            android:textSize="16sp"
+            app:BgColorNormal="#795548"
+            app:BgColorSelected="#009688"
+            app:BgRadius="15dp"
+            app:BgStrokeColorNormal="#d8d8d8"
+            app:BgStrokeColorSelected="#ffeb3b"
+            app:StrokeWidth="1dp"
+            app:selected="true"
+            app:textColorNormal="#d8d8d8"
+            app:textColorSelected="#333333" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_normal_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="#795548"
+            android:text="normal\nBG Color" />
+
+        <Button
+            android:id="@+id/btn_selected_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:background="#009688"
+            android:text="Selected\nBG Color" />
+
+        <Button
+            android:id="@+id/btn_normal_stroke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:background="#d8d8d8"
+            android:text="normal\nBorder Color" />
+
+        <Button
+            android:id="@+id/btn_selected_stroke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:background="#ffeb3b"
+            android:text="Selected\nBorder Color" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/seekbar_stroke_width_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Stroke Width(dp)" />
+
+    <SeekBar
+        android:id="@+id/seekbar_stroke_width"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="15"
+        android:min="1"
+        android:progress="1" />
+
+    <TextView
+        android:id="@+id/seekbar_corner_radius_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Corner Radius(dp)" />
+
+    <SeekBar
+        android:id="@+id/seekbar_corner_radius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="30"
+        android:min="0"
+        android:progress="15" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_normal_textcolor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="#000000"
+            android:text="normal\nBG Color"
+            android:textColor="#d8d8d8" />
+
+        <Button
+            android:id="@+id/btn_selected_textcolor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:background="#000000"
+            android:text="Selected\nBG Color"
+            android:textColor="#333333" />
+
+    </LinearLayout>
 </LinearLayout>
