@@ -33,6 +33,7 @@ public class EnhancedTextView extends AppCompatTextView {
 
     public EnhancedTextView(Context context) {
         super(context);
+        mDrawableHelper = new DrawableHelper();
         init();
     }
 
