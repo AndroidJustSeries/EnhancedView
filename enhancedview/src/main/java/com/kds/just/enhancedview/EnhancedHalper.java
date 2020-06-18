@@ -66,12 +66,14 @@ public class EnhancedHalper {
         }
         return NAME_LIGHT;
     }
+
     public static String getRegularPath(Context ctx) {
         if (TextUtils.isEmpty(NAME_REGULAR)) {
             NAME_REGULAR = get(ctx,FONT_PATH_REGULAR);
         }
         return NAME_REGULAR;
     }
+
     public static String getBoldPath(Context ctx) {
         if (TextUtils.isEmpty(NAME_BOLD)) {
             NAME_BOLD = get(ctx,FONT_PATH_BOLD);
@@ -79,9 +81,13 @@ public class EnhancedHalper {
         return NAME_BOLD;
     }
 
-    public static void setFont(Context ctx, TextView v, AttributeSet attrs) {
+    public static FontType getFontType(Context ctx, AttributeSet attrs) {
         TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.EnhancedView);
-        FontType fontType = FontType.fromId(a.getInt(R.styleable.EnhancedView_cfont, 0));
+        return FontType.fromId(a.getInt(R.styleable.EnhancedView_cfont, 0));
+    }
+
+    public static void setFont(Context ctx, TextView v, AttributeSet attrs) {
+        FontType fontType = getFontType(ctx,attrs);
         boolean isFontChanged = false;
         switch (fontType) {
             case Font_Light:
@@ -92,6 +98,25 @@ public class EnhancedHalper {
                 break;
             case Font_Bold:
                 isFontChanged = setTextNaumeBold(ctx, v);
+                break;
+            default:
+        }
+        if (isFontChanged) {
+            v.setIncludeFontPadding(false);
+        }
+    }
+
+    public static void setFont(TextView v, FontType fontType) {
+        boolean isFontChanged = false;
+        switch (fontType) {
+            case Font_Light:
+                isFontChanged = setTextNanumLight(v.getContext(), v);
+                break;
+            case Font_Regular:
+                isFontChanged = setTextNanum(v.getContext(), v);
+                break;
+            case Font_Bold:
+                isFontChanged = setTextNaumeBold(v.getContext(), v);
                 break;
             default:
         }

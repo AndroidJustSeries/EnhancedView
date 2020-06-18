@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.kds.just.enhancedview.EnhancedTextView
+    <com.kds.just.enhancedview.view.EnhancedTextView
         android:id="@+id/enhanced_textview_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         app:textColorNormal="#d8d8d8"
         app:textColorSelected="#ffffff" />
 
-    <com.kds.just.enhancedview.EnhancedTextView
+    <com.kds.just.enhancedview.view.EnhancedTextView
         android:id="@+id/enhanced_textview_02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         app:textColorNormal="#d8d8d8"
         app:textColorSelected="#2d2d2d" />
 
-    <com.kds.just.enhancedview.EnhancedTextView
+    <com.kds.just.enhancedview.view.EnhancedTextView
         android:id="@+id/enhanced_textview_03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <com.kds.just.enhancedview.EnhancedTextView
+        <com.kds.just.enhancedview.view.EnhancedTextView
             android:id="@+id/enhanced_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
             app:textColorNormal="#d8d8d8"
             app:textColorSelected="#333333" />
 
-        <com.kds.just.enhancedview.EnhancedTextView
+        <com.kds.just.enhancedview.view.EnhancedTextView
             android:id="@+id/enhanced_selected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

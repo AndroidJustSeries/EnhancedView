@@ -22,7 +22,7 @@ dependencies {
 ## How to use
 #XML
 ```
-<com.kds.just.enhancedview.EnhancedTextView
+<com.kds.just.enhancedview.view.EnhancedTextView
         android:id="@+id/enhanced_textview_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

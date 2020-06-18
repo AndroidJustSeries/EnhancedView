@@ -1,30 +1,20 @@
-package com.kds.just.enhancedview;
+package com.kds.just.enhancedview.view;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.os.Environment;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import java.io.File;
+import com.kds.just.enhancedview.DrawableHelper;
+import com.kds.just.enhancedview.EnhancedHalper;
+import com.kds.just.enhancedview.R;
 
 public class EnhancedTextView extends AppCompatTextView {
     private static final String TAG = "EnhancedTextView";

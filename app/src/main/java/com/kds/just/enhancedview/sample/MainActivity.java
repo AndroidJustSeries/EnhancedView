@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
-import com.kds.just.enhancedview.EnhancedTextView;
+import com.kds.just.enhancedview.view.EnhancedTextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

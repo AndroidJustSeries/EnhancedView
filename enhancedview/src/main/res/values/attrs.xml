@@ -5,6 +5,7 @@
 
         <attr name="textColorNormal" format="color" />
         <attr name="textColorSelected" format="color" />
+        <attr name="textSize" format="dimension" />
 
         <attr name="BgStrokeColorNormal" format="color" />
         <attr name="BgStrokeColorSelected" format="color" />
