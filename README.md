@@ -2,6 +2,7 @@
 
 
 ![enhancedview](https://user-images.githubusercontent.com/5418274/74895205-691e7f80-53d4-11ea-94c8-da23602859ea.gif)
+![segmentview1](https://user-images.githubusercontent.com/5418274/74515360-c4262180-4f51-11ea-90f2-23faf181f624.gif)
 
 Edit root/app/build.gradle like below.
 ```
