@@ -13,12 +13,12 @@ import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 import com.kds.just.enhancedview.view.EnhancedTextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class SampleEnhancedTextView extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.sample_enhanced_textview);
 
         findViewById(R.id.enhanced_textview_01).setOnClickListener(this);
         findViewById(R.id.enhanced_textview_02).setOnClickListener(this);
