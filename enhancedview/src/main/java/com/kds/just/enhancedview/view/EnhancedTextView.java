@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.Html;
 import android.text.TextUtils;
@@ -41,6 +42,10 @@ public class EnhancedTextView extends AppCompatTextView {
         mDrawableHelper.mTextColorNormal = ta.getColor(R.styleable.EnhancedView_textColorNormal,mDrawableHelper.mTextColorNormal);
         mDrawableHelper.mTextColorSelected = ta.getColor(R.styleable.EnhancedView_textColorSelected,mDrawableHelper.mTextColorSelected);
 
+        boolean isUnderLine = ta.getBoolean(R.styleable.EnhancedView_underline,false);
+        if (isUnderLine) {
+            setUnderLine(true);
+        }
         boolean isSelected = ta.getBoolean(R.styleable.EnhancedView_selected,false);
 
         setSelected(isSelected);
@@ -53,6 +58,14 @@ public class EnhancedTextView extends AppCompatTextView {
         EnhancedHalper.setFont(context,this,attrs);
 
         init();
+    }
+
+    private void setUnderLine(boolean isUnderLine) {
+        if (isUnderLine) {
+            setPaintFlags(getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        } else {
+            setPaintFlags(getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
+        }
     }
 
     private void init() {

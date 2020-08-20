@@ -15,6 +15,7 @@
         <attr name="StrokeWidth" format="dimension" />
 
         <attr name="selected" format="boolean" />
+        <attr name="underline" format="boolean" />
 
         <attr name="cfont">
             <enum name="light" value="1"></enum>
