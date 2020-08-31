@@ -29,4 +29,47 @@
         app:textColorNormal="#d8d8d8"
         app:textColorSelected="#2d2d2d" />
 
+    <com.kds.just.enhancedview.view.EnhancedTextView
+        android:id="@+id/sample_enhanced_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp"
+        android:text="EnhancedEditText Sample"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:BgRadius="5dp"
+        app:BgStrokeColorNormal="#d8d8d8"
+        app:BgStrokeColorSelected="#727af2"
+        app:StrokeWidth="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textColorNormal="#d8d8d8"
+        app:textColorSelected="#2d2d2d" />
+
+    <com.kds.just.enhancedview.view.EnhancedTextView
+        android:id="@+id/sample_enhanced_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp"
+        android:text="EnhancedCheckBox Sample"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:BgRadius="5dp"
+        app:BgStrokeColorNormal="#d8d8d8"
+        app:BgStrokeColorSelected="#727af2"
+        app:StrokeWidth="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textColorNormal="#d8d8d8"
+        app:textColorSelected="#2d2d2d" />
 </LinearLayout>

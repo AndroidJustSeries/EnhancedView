@@ -1,7 +1,5 @@
 package com.kds.just.enhancedview.sample;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -9,19 +7,38 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
+import com.kds.just.enhancedview.view.EnhancedControl;
 import com.kds.just.enhancedview.view.EnhancedTextView;
 
-public class SampleEnhancedTextView extends AppCompatActivity implements View.OnClickListener {
+public class SampleEnhancedView extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "SampleEnhancedView";
+    public static final int TYPE_TEXTVIEW = 0;
+    public static final int TYPE_EDITTEXT = 1;
+    public static final int TYPE_CHECKBOX = 2;
 
+    public static final String EXTRA_VIEW_TYPE = "EXTRA_VIEW_TYPE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sample_enhanced_textview);
-
-        findViewById(R.id.enhanced_textview_01).setOnClickListener(this);
-        findViewById(R.id.enhanced_textview_02).setOnClickListener(this);
+        int type = TYPE_TEXTVIEW;
+        if (getIntent() != null) {
+            type = getIntent().getIntExtra(EXTRA_VIEW_TYPE,TYPE_TEXTVIEW);
+        }
+        if (type == TYPE_TEXTVIEW) {
+            setContentView(R.layout.sample_enhanced_textview);
+            findViewById(R.id.enhanced_view_01).setOnClickListener(this);
+            findViewById(R.id.enhanced_view_02).setOnClickListener(this);
+        } else if (type == TYPE_EDITTEXT) {
+            setContentView(R.layout.sample_enhanced_edittext);
+            findViewById(R.id.enhanced_view_01).setOnClickListener(this);
+            findViewById(R.id.enhanced_view_02).setOnClickListener(this);
+        } else if (type == TYPE_CHECKBOX) {
+            setContentView(R.layout.sample_enhanced_checkbox);
+        }
 
         setupProgrammaticallyUI();
     }
@@ -29,20 +46,18 @@ public class SampleEnhancedTextView extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.enhanced_textview_01) {
+        if (id == R.id.enhanced_view_01) {
             v.setSelected(!v.isSelected());
-        } else if (id == R.id.enhanced_textview_02) {
+        } else if (id == R.id.enhanced_view_02) {
             v.setSelected(!v.isSelected());
         }
 
-
-
         if (v == mNormalEnhancedTextView) {
             v.setSelected(!v.isSelected());
-            mNormalEnhancedTextView.setText(v.isSelected()?"Selected state":"Normal state");
+            ((TextView)mNormalEnhancedTextView).setText(v.isSelected()?"Selected state":"Normal state");
         } else if (v == mSelectedEnhancedTextView) {
             v.setSelected(!v.isSelected());
-            mSelectedEnhancedTextView.setText(v.isSelected()?"Selected state":"Normal state");
+            ((TextView)mSelectedEnhancedTextView).setText(v.isSelected()?"Selected state":"Normal state");
         } else if (v == mNormalBGButton) {
             showColorPicker(mNormalBGButton);
         } else if (v == mSelectedBGButton) {
@@ -58,8 +73,8 @@ public class SampleEnhancedTextView extends AppCompatActivity implements View.On
         }
     }
 
-    private EnhancedTextView mNormalEnhancedTextView;
-    private EnhancedTextView mSelectedEnhancedTextView;
+    private EnhancedControl mNormalEnhancedTextView;
+    private EnhancedControl mSelectedEnhancedTextView;
     private Button mNormalBGButton;
     private Button mSelectedBGButton;
     private Button mNormalStrokeButton;
@@ -85,8 +100,8 @@ public class SampleEnhancedTextView extends AppCompatActivity implements View.On
         mNormalTextColorButton = findViewById(R.id.btn_normal_textcolor);
         mSelectedTextColorButton = findViewById(R.id.btn_selected_textcolor);
 
-        mNormalEnhancedTextView.setOnClickListener(this);
-        mSelectedEnhancedTextView.setOnClickListener(this);
+        ((View)mNormalEnhancedTextView).setOnClickListener(this);
+        ((View)mSelectedEnhancedTextView).setOnClickListener(this);
 
         mNormalBGButton.setOnClickListener(this);
         mSelectedBGButton.setOnClickListener(this);
@@ -101,7 +116,7 @@ public class SampleEnhancedTextView extends AppCompatActivity implements View.On
                 if (fromUser) {
                     mNormalEnhancedTextView.setStrokeWidth(dp2px(progress));
                     mSelectedEnhancedTextView.setStrokeWidth(dp2px(progress));
-                    ((TextView)findViewById(R.id.seekbar_stroke_width_tv)).setText("Stroke Width(dp)");
+                    ((TextView)findViewById(R.id.seekbar_stroke_width_tv)).setText("Stroke Width(" + progress + "dp)");
                 }
             }
 
@@ -122,7 +137,7 @@ public class SampleEnhancedTextView extends AppCompatActivity implements View.On
                 if (fromUser) {
                     mNormalEnhancedTextView.setRoundRadius(dp2px(progress));
                     mSelectedEnhancedTextView.setRoundRadius(dp2px(progress));
-                    ((TextView)findViewById(R.id.seekbar_corner_radius_tv)).setText("Corner Radius(dp)");
+                    ((TextView)findViewById(R.id.seekbar_corner_radius_tv)).setText("Corner Radius(" + progress + "dp)");
                 }
             }
 

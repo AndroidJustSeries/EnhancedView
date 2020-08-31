@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".SampleEnhancedView">
 
-    <com.kds.just.enhancedview.view.EnhancedTextView
+    <com.kds.just.enhancedview.view.EnhancedEditText
         android:id="@+id/enhanced_view_01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,21 +17,11 @@
         android:paddingTop="10dp"
         android:paddingRight="15dp"
         android:paddingBottom="10dp"
-        android:text="EnhancedTextView Test"
+        android:text="EnhancedTextView no option Test"
         android:textColor="#000000"
-        android:textSize="16sp"
-        app:BgColorNormal="#ffffff"
-        app:BgColorSelected="#727af2"
-        app:BgRadius="25dp"
-        app:BgStrokeColorNormal="#d8d8d8"
-        app:BgStrokeColorSelected="#727af2"
-        app:StrokeWidth="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:textColorNormal="#d8d8d8"
-        app:textColorSelected="#ffffff" />
+        android:textSize="16sp" />
 
-    <com.kds.just.enhancedview.view.EnhancedTextView
+    <com.kds.just.enhancedview.view.EnhancedEditText
         android:id="@+id/enhanced_view_02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +43,7 @@
         app:textColorNormal="#d8d8d8"
         app:textColorSelected="#2d2d2d" />
 
-    <com.kds.just.enhancedview.view.EnhancedTextView
+    <com.kds.just.enhancedview.view.EnhancedEditText
         android:id="@+id/enhanced_view_03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,7 +74,7 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <com.kds.just.enhancedview.view.EnhancedTextView
+        <com.kds.just.enhancedview.view.EnhancedEditText
             android:id="@+id/enhanced_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +94,7 @@
             app:textColorNormal="#d8d8d8"
             app:textColorSelected="#333333" />
 
-        <com.kds.just.enhancedview.view.EnhancedTextView
+        <com.kds.just.enhancedview.view.EnhancedEditText
             android:id="@+id/enhanced_selected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

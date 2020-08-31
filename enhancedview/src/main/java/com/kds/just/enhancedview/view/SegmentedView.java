@@ -186,7 +186,6 @@ public class SegmentedView extends LinearLayout implements View.OnClickListener 
     protected void onDraw(Canvas canvas) {
         int childCount = getChildCount();
         mStrokePadding = mStrokeWidth / 2;
-        Log.e(TAG,"KDS3393_TEST_mStrokeWidth + " + mStrokeWidth + " StrokePadding = " + mStrokePadding);
         RectF rectF = new RectF(
                 mStrokePadding, // left
                 mStrokePadding, // top

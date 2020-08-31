@@ -11,24 +11,25 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.kds.just.enhancedview.DrawableHelper;
 import com.kds.just.enhancedview.EnhancedHalper;
 import com.kds.just.enhancedview.R;
 
-public class EnhancedTextView extends AppCompatTextView implements EnhancedControl {
+public class EnhancedCheckBox extends AppCompatCheckBox implements EnhancedControl {
     private static final String TAG = "EnhancedTextView";
 
     DrawableHelper mDrawableHelper;
 
-    public EnhancedTextView(Context context) {
+    public EnhancedCheckBox(Context context) {
         super(context);
         mDrawableHelper = new DrawableHelper();
         init();
     }
 
-    public EnhancedTextView(Context context, @Nullable AttributeSet attrs) {
+    public EnhancedCheckBox(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mDrawableHelper = new DrawableHelper();
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EnhancedView);
@@ -62,6 +63,9 @@ public class EnhancedTextView extends AppCompatTextView implements EnhancedContr
     private void init() {
         setWillNotDraw(false);
         mDrawableHelper.init();
+        if (mDrawableHelper.isDraw()) {
+            setBackground(null);
+        }
     }
 
     @Override
@@ -137,7 +141,7 @@ public class EnhancedTextView extends AppCompatTextView implements EnhancedContr
     public void setTextColor(int normal, int selected) {
         mDrawableHelper.mTextColorNormal = normal;
         mDrawableHelper.mTextColorSelected = selected;
-        ColorStateList textColor = mDrawableHelper.getTextColor(android.R.attr.state_selected);
+        ColorStateList textColor = mDrawableHelper.getTextColor(android.R.attr.state_checked);
         if (textColor != null ){
             setTextColor(textColor);
         }
@@ -172,7 +176,7 @@ public class EnhancedTextView extends AppCompatTextView implements EnhancedContr
     @Override
     protected void onDraw(Canvas canvas) {
         if (getBackground() == null) {
-            mDrawableHelper.drawBg(canvas,getWidth(),getHeight(),isPressed(),isSelected());
+            mDrawableHelper.drawBg(canvas,getWidth(),getHeight(),isPressed(),isChecked());
         }
         super.onDraw(canvas);
     }

@@ -2,6 +2,7 @@ package com.kds.just.enhancedview.sample;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -20,13 +21,25 @@ public class ActMain extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.act_main);
 
         findViewById(R.id.sample_enhanced_textview).setOnClickListener(this);
+        findViewById(R.id.sample_enhanced_edittext).setOnClickListener(this);
+        findViewById(R.id.sample_enhanced_checkbox).setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.sample_enhanced_textview) {
-            v.setSelected(!v.isSelected());
+            Intent intent = new Intent(this,SampleEnhancedView.class);
+            startActivity(intent);
+        } else if (id == R.id.sample_enhanced_edittext) {
+            Intent intent = new Intent(this,SampleEnhancedView.class);
+            intent.putExtra(SampleEnhancedView.EXTRA_VIEW_TYPE,SampleEnhancedView.TYPE_EDITTEXT);
+            startActivity(intent);
+        } else if (id == R.id.sample_enhanced_checkbox) {
+            Intent intent = new Intent(this,SampleEnhancedView.class);
+            intent.putExtra(SampleEnhancedView.EXTRA_VIEW_TYPE,SampleEnhancedView.TYPE_CHECKBOX);
+            startActivity(intent);
         }
     }
 

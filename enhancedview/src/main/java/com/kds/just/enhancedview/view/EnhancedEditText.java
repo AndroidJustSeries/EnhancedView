@@ -11,24 +11,25 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.kds.just.enhancedview.DrawableHelper;
 import com.kds.just.enhancedview.EnhancedHalper;
 import com.kds.just.enhancedview.R;
 
-public class EnhancedTextView extends AppCompatTextView implements EnhancedControl {
+public class EnhancedEditText extends AppCompatEditText implements EnhancedControl {
     private static final String TAG = "EnhancedTextView";
 
     DrawableHelper mDrawableHelper;
 
-    public EnhancedTextView(Context context) {
+    public EnhancedEditText(Context context) {
         super(context);
         mDrawableHelper = new DrawableHelper();
         init();
     }
 
-    public EnhancedTextView(Context context, @Nullable AttributeSet attrs) {
+    public EnhancedEditText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mDrawableHelper = new DrawableHelper();
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EnhancedView);
@@ -38,9 +39,9 @@ public class EnhancedTextView extends AppCompatTextView implements EnhancedContr
         mDrawableHelper.mBGColorSelected = ta.getColor(R.styleable.EnhancedView_BgColorSelected,mDrawableHelper.mBGColorSelected);
         mDrawableHelper.mRoundRadius = ta.getDimensionPixelSize(R.styleable.EnhancedView_BgRadius,mDrawableHelper.mRoundRadius);
         mDrawableHelper.mStrokeWidth = ta.getDimensionPixelSize(R.styleable.EnhancedView_StrokeWidth,mDrawableHelper.mStrokeWidth);
-
         setTextColor(ta.getColor(R.styleable.EnhancedView_textColorNormal,mDrawableHelper.mTextColorNormal),
-                     ta.getColor(R.styleable.EnhancedView_textColorSelected,mDrawableHelper.mTextColorSelected));
+                ta.getColor(R.styleable.EnhancedView_textColorSelected,mDrawableHelper.mTextColorSelected));
+
         boolean isUnderLine = ta.getBoolean(R.styleable.EnhancedView_underline,false);
         if (isUnderLine) {
             setUnderLine(true);
@@ -62,6 +63,9 @@ public class EnhancedTextView extends AppCompatTextView implements EnhancedContr
     private void init() {
         setWillNotDraw(false);
         mDrawableHelper.init();
+        if (mDrawableHelper.isDraw()) {
+            setBackground(null);
+        }
     }
 
     @Override
@@ -72,7 +76,7 @@ public class EnhancedTextView extends AppCompatTextView implements EnhancedContr
             setPaintFlags(getPaintFlags() & (~ Paint.UNDERLINE_TEXT_FLAG));
         }
     }
-
+    
     @Override
     public int getStrokeNormalColor() {
         return mDrawableHelper.mStrokeColorNormal;
@@ -137,7 +141,7 @@ public class EnhancedTextView extends AppCompatTextView implements EnhancedContr
     public void setTextColor(int normal, int selected) {
         mDrawableHelper.mTextColorNormal = normal;
         mDrawableHelper.mTextColorSelected = selected;
-        ColorStateList textColor = mDrawableHelper.getTextColor(android.R.attr.state_selected);
+        ColorStateList textColor = mDrawableHelper.getTextColor(android.R.attr.state_focused);
         if (textColor != null ){
             setTextColor(textColor);
         }
@@ -172,7 +176,7 @@ public class EnhancedTextView extends AppCompatTextView implements EnhancedContr
     @Override
     protected void onDraw(Canvas canvas) {
         if (getBackground() == null) {
-            mDrawableHelper.drawBg(canvas,getWidth(),getHeight(),isPressed(),isSelected());
+            mDrawableHelper.drawBg(canvas,getWidth(),getHeight(),isFocused(),isSelected());
         }
         super.onDraw(canvas);
     }
