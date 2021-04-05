@@ -20,20 +20,24 @@ public class EnhancedHalper {
     public static String NAME_LIGHT = null;
     public static String NAME_REGULAR = null;
     public static String NAME_BOLD = null;
+    public static String NAME_EXTRA_BOLD = null;
 
     public static final String FONT_PATH_LIGHT = "FONT_PATH_LIGHT";
     public static final String FONT_PATH_REGULAR = "FONT_PATH_REGULAR";
     public static final String FONT_PATH_BOLD = "FONT_PATH_BOLD";
+    public static final String FONT_PATH_EXTRA_BOLD = "FONT_PATH_EXTRA_BOLD";
 
     public static Typeface mFont_Light;
     public static Typeface mFont_Regular;
     public static Typeface mFont_Bold;
+    public static Typeface mFont_ExtraBold;
 
     public static enum FontType {
         Font_None(0),
         Font_Light(1),
         Font_Regular(2),
-        Font_Bold(3);
+        Font_Bold(3),
+        Font_ExtraBold(4);
 
         private int mId;
 
@@ -51,13 +55,15 @@ public class EnhancedHalper {
         }
     }
 
-    public static void initFontAssetPath(Context ctx, String light,String regular, String bold) {
+    public static void initFontAssetPath(Context ctx, String light,String regular, String bold, String extrabold) {
         NAME_LIGHT = light;
         NAME_REGULAR = regular;
         NAME_BOLD = bold;
+        NAME_EXTRA_BOLD = extrabold;
         put(ctx,FONT_PATH_LIGHT,NAME_LIGHT);
         put(ctx,FONT_PATH_REGULAR,NAME_REGULAR);
         put(ctx,FONT_PATH_BOLD,NAME_BOLD);
+        put(ctx,FONT_PATH_EXTRA_BOLD,NAME_EXTRA_BOLD);
     }
 
     public static String getLightPath(Context ctx) {
@@ -81,6 +87,13 @@ public class EnhancedHalper {
         return NAME_BOLD;
     }
 
+    public static String getExtraBoldPath(Context ctx) {
+        if (TextUtils.isEmpty(NAME_EXTRA_BOLD)) {
+            NAME_EXTRA_BOLD = get(ctx,FONT_PATH_EXTRA_BOLD);
+        }
+        return NAME_EXTRA_BOLD;
+    }
+
     public static FontType getFontType(Context ctx, AttributeSet attrs) {
         TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.EnhancedView);
         return FontType.fromId(a.getInt(R.styleable.EnhancedView_cfont, 0));
@@ -98,6 +111,9 @@ public class EnhancedHalper {
                 break;
             case Font_Bold:
                 isFontChanged = setTextNaumeBold(ctx, v);
+                break;
+            case Font_ExtraBold:
+                isFontChanged = setTextNaumeExtraBold(ctx, v);
                 break;
             default:
         }
@@ -117,6 +133,9 @@ public class EnhancedHalper {
                 break;
             case Font_Bold:
                 isFontChanged = setTextNaumeBold(v.getContext(), v);
+                break;
+            case Font_ExtraBold:
+                isFontChanged = setTextNaumeExtraBold(v.getContext(), v);
                 break;
             default:
         }
@@ -190,7 +209,27 @@ public class EnhancedHalper {
             return true;
         }
     }
+    public static boolean setTextNaumeExtraBold(Context ctx, TextView v) {
+        if (mFont_ExtraBold == null) {
+            try {
+                mFont_ExtraBold = Typeface.createFromAsset(ctx.getAssets(), NAME_EXTRA_BOLD);
+                v.setTypeface(mFont_ExtraBold);
+                return true;
+            } catch(Exception e) {
+                try {
+                    mFont_ExtraBold = Typeface.createFromFile(new File(Environment.getExternalStorageDirectory(), NAME_EXTRA_BOLD));
+                    v.setTypeface(mFont_ExtraBold);
+                    return true;
+                } catch(Exception e1) {
 
+                }
+                return false;
+            }
+        } else {
+            v.setTypeface(mFont_ExtraBold);
+            return true;
+        }
+    }
 
     public static void put(Context ctx, String key, String value) {
         SharedPreferences pref = ctx.getSharedPreferences(INI_FILENAME_CONFIG, Activity.MODE_PRIVATE);

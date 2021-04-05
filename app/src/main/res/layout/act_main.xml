@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".SampleEnhancedTextView">
+    android:orientation="vertical">
 
     <com.kds.just.enhancedview.view.EnhancedTextView
         android:id="@+id/sample_enhanced_textview"
@@ -24,6 +23,7 @@
         app:BgStrokeColorNormal="#d8d8d8"
         app:BgStrokeColorSelected="#727af2"
         app:StrokeWidth="1dp"
+        app:cfont="extrabold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:textColorNormal="#d8d8d8"
