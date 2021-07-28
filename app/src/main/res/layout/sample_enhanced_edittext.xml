@@ -21,27 +21,54 @@
         android:textColor="#000000"
         android:textSize="16sp" />
 
-    <com.kds.just.enhancedview.view.EnhancedEditText
-        android:id="@+id/enhanced_view_02"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <com.kds.just.enhancedview.view.EnhancedEditText
+            android:id="@+id/enhanced_view_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="27dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
+            android:text="EnhancedTextView Single Line"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:BgRadius="5dp"
+            app:BgStrokeColorNormal="#d8d8d8"
+            app:BgStrokeColorSelected="#727af2"
+            app:StrokeWidth="1dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textColorNormal="#d8d8d8"
+            app:textColorSelected="#2d2d2d" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/enhanced_view_02_normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="27dp"
+        android:background="@drawable/rect_round_ff0000_5dp"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:paddingRight="15dp"
         android:paddingBottom="10dp"
-        android:text="EnhancedTextView Test"
+        android:text="EnhancedTextView Single Line"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:BgRadius="5dp"
-        app:BgStrokeColorNormal="#d8d8d8"
-        app:BgStrokeColorSelected="#727af2"
-        app:StrokeWidth="1dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:textColorNormal="#d8d8d8"
-        app:textColorSelected="#2d2d2d" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.kds.just.enhancedview.view.EnhancedEditText
         android:id="@+id/enhanced_view_03"

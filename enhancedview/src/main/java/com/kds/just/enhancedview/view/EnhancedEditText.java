@@ -5,10 +5,12 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -176,7 +178,12 @@ public class EnhancedEditText extends AppCompatEditText implements EnhancedContr
     @Override
     protected void onDraw(Canvas canvas) {
         if (getBackground() == null) {
+            Rect rect = new Rect();
+            this.getDrawingRect(rect);
+            canvas.save();
+            canvas.translate(rect.left,rect.top);
             mDrawableHelper.drawBg(canvas,getWidth(),getHeight(),isFocused(),isSelected());
+            canvas.restore();
         }
         super.onDraw(canvas);
     }
