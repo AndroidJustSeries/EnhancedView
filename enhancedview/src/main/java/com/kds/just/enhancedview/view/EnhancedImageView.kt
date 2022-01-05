@@ -73,7 +73,7 @@ class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Shapeab
 
             isGroup = ta.getBoolean(R.styleable.EnhancedView_isGroup, false)
 
-            mImageScaleType = ta.getInt(R.styleable.EnhancedView_scaleType, mImageScaleType)
+            mImageScaleType = ta.getInt(R.styleable.EnhancedView_viewType, mImageScaleType)
 
             mImageUrl = ta.getString(R.styleable.EnhancedView_imgUrl)
             if (!TextUtils.isEmpty(mImageUrl)) {

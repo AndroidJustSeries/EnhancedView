@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="@id/selectImage0"
         app:layout_constraintStart_toStartOf="@id/selectImage0"
         app:layout_constraintTop_toBottomOf="@id/selectImage0"
-        app:scaleType="fit_center" />
+        app:viewType="fit_center" />
 
 
     <com.kds.just.enhancedview.view.EnhancedImageView

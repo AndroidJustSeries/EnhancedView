@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:background="#dddddd"
             app:imgUrl="https://c8.alamy.com/comp/EJWNX5/home-alone-movie-poster-EJWNX5.jpg"
-            app:scaleType="fit_center" />
+            app:viewType="fit_center" />
     </FrameLayout>
 
     <FrameLayout
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:background="#dddddd"
             app:imgUrl="https://c8.alamy.com/comp/EJWNX5/home-alone-movie-poster-EJWNX5.jpg"
-            app:scaleType="center_crop_larger_height" />
+            app:viewType="center_crop_larger_height" />
     </FrameLayout>
 
     <FrameLayout
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:background="#dddddd"
             app:imgUrl="https://c8.alamy.com/comp/EJWNX5/home-alone-movie-poster-EJWNX5.jpg"
-            app:scaleType="fit_center_larger_drawable" />
+            app:viewType="fit_center_larger_drawable" />
     </FrameLayout>
 
     <com.kds.just.enhancedview.view.EnhancedTextView

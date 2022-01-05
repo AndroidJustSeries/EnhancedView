@@ -30,7 +30,7 @@
 
         <!--Glide image load url-->
         <attr name="imgUrl" format="string" />
-        <attr name="scaleType">
+        <attr name="viewType">
             <!--무조건 이미지에 맞춰서 View가 커질수 있는 한계만큰 그려줌-->
             <enum name="fit_center" value="1"/>
             <!--가로보다 세로가 큰 이미지는 Center crop함-->
