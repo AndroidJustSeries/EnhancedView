@@ -47,17 +47,14 @@ class ActImageViewScaleSample : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         val id = v.id
         if (id == R.id.img0) {
-            Log.e("TEST","KDS3393_TEST_view w = " + img0.width + " h = " + img0.height)
             fullImage.mImageScaleType = img0.mImageScaleType
             fullImage.visibility = View.VISIBLE
             fullImage.setImageUrl(img1.mImageUrl)
         } else if (id == R.id.img1) {
-            Log.e("TEST","KDS3393_TEST_view w = " + img1.width + " h = " + img1.height)
             fullImage.mImageScaleType = img1.mImageScaleType
             fullImage.visibility = View.VISIBLE
             fullImage.setImageUrl(img1.mImageUrl)
         } else if (id == R.id.img2) {
-            Log.e("TEST","KDS3393_TEST_view w = " + img2.width + " h = " + img2.height)
             fullImage.mImageScaleType = img2.mImageScaleType
             fullImage.visibility = View.VISIBLE
             fullImage.setImageUrl(img2.mImageUrl)

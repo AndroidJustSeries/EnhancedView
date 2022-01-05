@@ -77,7 +77,6 @@ class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Shapeab
 
             mImageUrl = ta.getString(R.styleable.EnhancedView_imgUrl)
             if (!TextUtils.isEmpty(mImageUrl)) {
-                Log.e("TEST","KDS3393_TEST_url = " + mImageUrl)
                 setImageUrl(mImageUrl)
             }
 
@@ -149,7 +148,6 @@ class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Shapeab
                         BitmapFactory.decodeFile(resource.path, options)
                         val imageWidth = options.outWidth
                         val imageHeight = options.outHeight
-                        Log.e("TEST","KDS3393_TEST_w File = " + imageWidth + " h = " + imageHeight)
                         setImageUrl(url,Size(imageWidth,imageHeight))
                     }
 
@@ -195,20 +193,18 @@ class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Shapeab
         if (glide == null) {
             glide = Glide.with(this)
         }
-        var builder = glide.asBitmap().load(mImageUrl).transition(BitmapTransitionOptions.withCrossFade())
+        var builder = glide.load(mImageUrl).transition(DrawableTransitionOptions.withCrossFade())
         if (mIsScalingBaseView > 0f) {
             builder.override((width * mIsScalingBaseView).toInt(),(height * mIsScalingBaseView).toInt())
-            Log.e("TEST","KDS3393_TEST_w mIsScalingBaseView = " + (width * mIsScalingBaseView).toInt() + " h = " + (height * mIsScalingBaseView).toInt() + " width = " + width + " width = " + height)
         } else if (imageSize != null && mResizeWidth > 0 && mResizeHeight > 0) {
             var overrideSize = EnhancedUtils.getFitScaleSize(imageSize.width,imageSize.height,mResizeWidth,mResizeHeight)
             builder.override(overrideSize.width,overrideSize.height)
-            Log.e("TEST","KDS3393_TEST_w Fixed = " + overrideSize.height + " h = " + overrideSize.height + " v width = " + width + " width = " + height + " img w = " + imageSize.width + " h = " + imageSize.height)
         } else if (mIsOriginalImageSize){
             builder.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
         }
 
-        builder.listener(object : RequestListener<Bitmap> {
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+        builder.listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                 if (mStateListDrawable != null) {
                     if (normalImage != null) {
                         mStateListDrawable!!.addState(intArrayOf(), normalImage)
@@ -217,32 +213,15 @@ class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Shapeab
                 }
                 return false
             }
-            override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                Log.e("TEST","KDS3393_TEST_w Bitmap = " + resource!!.width + " h = " + resource.height)
-                setImageBitmap(resource)
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                if (mStateListDrawable != null) {
+                    mStateListDrawable!!.addState(intArrayOf(), resource)
+                    setImageDrawable(mStateListDrawable)
+                    return true
+                }
                 return false
             }
         })
-//        builder.listener(object : RequestListener<Drawable> {
-//            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-//                if (mStateListDrawable != null) {
-//                    if (normalImage != null) {
-//                        mStateListDrawable!!.addState(intArrayOf(), normalImage)
-//                    }
-//                    setImageDrawable(mStateListDrawable)
-//                }
-//                return false
-//            }
-//            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-//                Log.e("TEST","KDS3393_TEST_w onResourceReady = " + resource!!.intrinsicWidth + " h = " + resource.intrinsicHeight)
-//                if (mStateListDrawable != null) {
-//                    mStateListDrawable!!.addState(intArrayOf(), resource)
-//                    setImageDrawable(mStateListDrawable)
-//                    return true
-//                }
-//                return false
-//            }
-//        })
         builder.into(this)
     }
 
@@ -286,11 +265,9 @@ class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Shapeab
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val d : Drawable? = this.drawable
-        Log.e("TEST","KDS3393_TEST_onMeasure d = " + d + " v = " + this)
         if (mImageScaleType != NONE && d != null) {
             val width = MeasureSpec.getSize(widthMeasureSpec)
             var height = Math.ceil((width * d.intrinsicHeight.toFloat() / d.intrinsicWidth).toDouble()).toInt()
-            Log.e("TEST","KDS3393_TEST_onMeasure width = " + width + " height = " + height + " mImageScaleType = " + mImageScaleType + " v = " + this)
             if (mImageScaleType == FIT_CENTER) { //무조건 이미지에 맞춰서 View가 커질수 있는 한계만큰 그려줌
                 scaleType = ScaleType.FIT_CENTER
             } else if (mImageScaleType == CENTER_CROP_LARGER_HEIGHT) { //가로보다 세로가 큰 이미지는 Center crop함
@@ -401,7 +378,6 @@ class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Shapeab
             if (interpolator > 1f) {
                 interpolator = 1f
             }
-            Log.e("TEST","KDS3393_TEST_inter = " + interpolator + " w = " + width + " h = " + height + " maxCorner = " + maxCorner + " offset = " + offset)
             return interpolator
         }
     }
