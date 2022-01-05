@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
+
+    <com.kds.just.enhancedview.view.EnhancedImageView
+        android:id="@+id/selectImage0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#00ff00"
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        app:BgStrokeColorNormal="#ff0000"
+        app:StrokeWidth="1dp"
+        app:imgUrl="https://c8.alamy.com/comp/EJWNX5/home-alone-movie-poster-EJWNX5.jpg"
+        app:isGroup="true"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintEnd_toStartOf="@id/selectImage2"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:roundBottomLeft="40dp"
+        app:roundTopRight="40dp" />
+
+    <com.kds.just.enhancedview.view.EnhancedImageView
+        android:id="@+id/selectImage1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        app:BgStrokeColorNormal="#ff0000"
+        app:StrokeWidth="1dp"
+        app:imgPressed="#ffff00"
+        app:imgSelect="#0000ff"
+        app:imgUrl="https://c8.alamy.com/comp/EJWNX5/home-alone-movie-poster-EJWNX5.jpg"
+        app:isCircle="true"
+        app:isGroup="true"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@id/selectImage0"
+        app:layout_constraintStart_toStartOf="@id/selectImage0"
+        app:layout_constraintTop_toBottomOf="@id/selectImage0"
+        app:scaleType="fit_center" />
+
+
+    <com.kds.just.enhancedview.view.EnhancedImageView
+        android:id="@+id/selectImage2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        app:BgStrokeColorNormal="#ff0000"
+        app:StrokeWidth="1dp"
+        app:imgPressed="#ffff00"
+        app:imgSelect="#0000ff"
+        app:imgUrl="https://c8.alamy.com/comp/EJWNX5/home-alone-movie-poster-EJWNX5.jpg"
+        app:isGroup="true"
+        app:layout_constraintDimensionRatio="1:1.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/selectImage0"
+        app:layout_constraintTop_toTopOf="@id/selectImage0"
+        app:roundAll="10dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/memoryTestLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@id/selectImage2"
+        app:layout_constraintEnd_toEndOf="@id/selectImage2"
+        app:layout_constraintStart_toStartOf="@id/selectImage0"
+        app:layout_constraintTop_toTopOf="@id/selectImage0" />
+
+    <Button
+        android:id="@+id/memoryTestNormalBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:background="#795548"
+        android:text="Normal Size"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/memoryTestLayout"
+        app:layout_constraintEnd_toEndOf="@id/memoryTestLayout"
+        app:layout_constraintTop_toTopOf="@id/memoryTestLayout" />
+
+    <Button
+        android:id="@+id/memoryTestViewBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:background="#795548"
+        android:text="View Size"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/memoryTestLayout"
+        app:layout_constraintStart_toStartOf="@id/memoryTestLayout"
+        app:layout_constraintTop_toTopOf="@id/memoryTestLayout" />
+
+    <Button
+        android:id="@+id/memoryTestFixedBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:background="#795548"
+        android:text="fixed Size"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/memoryTestLayout"
+        app:layout_constraintTop_toTopOf="@id/memoryTestLayout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectImage2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnImageBg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:background="#795548"
+                android:text="Image"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/btnNormalBg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="#795548"
+                android:text="normal\nBG Color"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/btnPressedBg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="#795548"
+                android:text="pressed\nBG Color"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/btnSelectedBg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="#009688"
+                android:text="Selected\nBG Color"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/btnNormalStroke"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="#ff0000"
+                android:text="Normal\nBorder Color"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/btnSelectedStroke"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="#999999"
+                android:text="Selected\nBorder Color"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/seekbarStrokeWidthTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Stroke Width(1dp)" />
+
+        <SeekBar
+            android:id="@+id/seekbarStrokeWidth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="15"
+            android:min="0"
+            android:progress="1" />
+
+        <TextView
+            android:id="@+id/seekbarAllCornerRadiusTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="All Corner Radius(15dp)" />
+
+        <SeekBar
+            android:id="@+id/seekbarAllCornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="150"
+            android:min="0"
+            android:progress="15" />
+
+        <TextView
+            android:id="@+id/seekbarLeftCornerRadiusTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Left Corner Radius(15dp)" />
+
+        <SeekBar
+            android:id="@+id/seekbarLeftCornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="150"
+            android:min="0"
+            android:progress="15" />
+
+        <TextView
+            android:id="@+id/seekbarTopCornerRadiusTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Top Corner Radius(15dp)" />
+
+        <SeekBar
+            android:id="@+id/seekbarTopCornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="150"
+            android:min="0"
+            android:progress="15" />
+
+        <TextView
+            android:id="@+id/seekbarRightCornerRadiusTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Right Corner Radius(15dp)" />
+
+        <SeekBar
+            android:id="@+id/seekbarRightCornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="150"
+            android:min="0"
+            android:progress="15" />
+
+        <TextView
+            android:id="@+id/seekbarBottomCornerRadiusTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Bottom Corner Radius(15dp)" />
+
+        <SeekBar
+            android:id="@+id/seekbarBottomCornerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="150"
+            android:min="0"
+            android:progress="15" />
+    </LinearLayout>
+
+    <com.kds.just.enhancedview.view.EnhancedImageView
+        android:id="@+id/fullImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

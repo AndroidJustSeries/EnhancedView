@@ -18,10 +18,38 @@
         <attr name="underline" format="boolean" />
 
         <attr name="cfont">
-            <enum name="light" value="1"></enum>
-            <enum name="normal" value="2"></enum>
-            <enum name="bold" value="3"></enum>
-            <enum name="extrabold" value="4"></enum>
+            <enum name="light" value="1"/>
+            <enum name="normal" value="2"/>
+            <enum name="bold" value="3"/>
+            <enum name="extrabold" value="4"/>
         </attr>
+
+        <attr name="imgNormal" format="reference|color"/>
+        <attr name="imgSelect" format="reference|color"/>
+        <attr name="imgPressed" format="reference|color"/>
+
+        <!--Glide image load url-->
+        <attr name="imgUrl" format="string" />
+        <attr name="scaleType">
+            <!--무조건 이미지에 맞춰서 View가 커질수 있는 한계만큰 그려줌-->
+            <enum name="fit_center" value="1"/>
+            <!--가로보다 세로가 큰 이미지는 Center crop함-->
+            <enum name="center_crop_larger_height" value="2"/>
+            <!--View보다 큰 이미지만 View에 맞추고 작은 이미지는 원본 이미지크기로 보여줌-->
+            <enum name="fit_center_larger_drawable" value="3"/>
+        </attr>
+
+        <attr name="isGroup" format="boolean"/>
+
+
+        <attr name="isCircle" format="boolean"/>
+        <attr name="roundAll" format="dimension" />
+
+        <attr name="roundTopLeft" format="dimension" />
+        <attr name="roundTopRight" format="dimension" />
+        <attr name="roundBottomLeft" format="dimension" />
+        <attr name="roundBottomRight" format="dimension" />
+
     </declare-styleable>
+
 </resources>
