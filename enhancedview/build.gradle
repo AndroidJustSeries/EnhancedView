@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 group='com.github.AndroidJustSeries'
-version = '1.2.7'
+version = '1.2.8'
 
 android {
     compileSdkVersion 30

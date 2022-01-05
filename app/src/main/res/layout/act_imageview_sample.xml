@@ -25,8 +25,8 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:roundBottomLeft="40dp"
-        app:roundTopRight="40dp" />
+        app:roundBL="40dp"
+        app:roundTR="40dp" />
 
     <com.kds.just.enhancedview.view.EnhancedImageView
         android:id="@+id/selectImage1"

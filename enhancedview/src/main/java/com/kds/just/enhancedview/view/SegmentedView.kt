@@ -32,7 +32,7 @@ import android.graphics.*
 import android.os.Build
 import com.kds.just.enhancedview.EnhancedUtils
 
-class SegmentedView : LinearLayout, View.OnClickListener {
+open class SegmentedView : LinearLayout, View.OnClickListener {
     private var mTextColorNormal = Color.parseColor("#d8d8d8")
     private var mTextColorSelected = Color.parseColor("#727af2")
     private var mTextSize = dp2px(10f)

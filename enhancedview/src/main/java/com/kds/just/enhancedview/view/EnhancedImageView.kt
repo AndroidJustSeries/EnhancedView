@@ -35,7 +35,7 @@ import com.kds.just.enhancedview.R
 import java.io.File
 
 
-class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : ShapeableImageView(context, attrs) {
+open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : ShapeableImageView(context, attrs) {
     companion object {
         const val NONE = 0          //ImageView의 ScaleType에 따라간다
         const val FIT_CENTER = 1  //무조건 이미지에 맞춰서 View가 커질수 있는 한계만큰 그려줌
@@ -306,10 +306,10 @@ class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Shapeab
             isCircle = ta.getBoolean(R.styleable.EnhancedView_isCircle, false)
             allCorner = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundAll, 0).toFloat()
 
-            topLeft = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundTopLeft, 0).toFloat()
-            topRight = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundTopRight, 0).toFloat()
-            bottomLeft = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundBottomLeft, 0).toFloat()
-            bottomRight = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundBottomRight, 0).toFloat()
+            topLeft = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundTL, 0).toFloat()
+            topRight = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundTR, 0).toFloat()
+            bottomLeft = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundBL, 0).toFloat()
+            bottomRight = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundBR, 0).toFloat()
         }
 
         fun build(width:Int, height:Int) : ShapeAppearanceModel? {

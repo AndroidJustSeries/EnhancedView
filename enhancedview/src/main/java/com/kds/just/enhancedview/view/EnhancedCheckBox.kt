@@ -14,7 +14,7 @@ import com.kds.just.enhancedview.EnhancedHalper
 import com.kds.just.enhancedview.EnhancedHalper.FontType
 import com.kds.just.enhancedview.R
 
-class EnhancedCheckBox : AppCompatCheckBox, EnhancedControl {
+open class EnhancedCheckBox : AppCompatCheckBox, EnhancedControl {
     var mDrawableHelper: DrawableHelper
 
     constructor(context: Context) : super(context) {

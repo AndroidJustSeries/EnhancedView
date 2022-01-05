@@ -54,7 +54,7 @@ object EnhancedHalper {
     var mFont_Bold: Typeface? = null
     var mFont_ExtraBold: Typeface? = null
 
-    fun initFontAssetPath(ctx: Context, light: String?, regular: String?, bold: String?, extrabold: String?) {
+    @JvmStatic fun initFontAssetPath(ctx: Context, light: String?, regular: String?, bold: String?, extrabold: String?) {
         NAME_LIGHT = light
         NAME_REGULAR = regular
         NAME_BOLD = bold
@@ -65,40 +65,40 @@ object EnhancedHalper {
         put(ctx, FONT_PATH_EXTRA_BOLD, NAME_EXTRA_BOLD)
     }
 
-    fun getLightPath(ctx: Context): String? {
+    @JvmStatic fun getLightPath(ctx: Context): String? {
         if (TextUtils.isEmpty(NAME_LIGHT)) {
             NAME_LIGHT = EnhancedHalper[ctx, FONT_PATH_LIGHT]
         }
         return NAME_LIGHT
     }
 
-    fun getRegularPath(ctx: Context): String? {
+    @JvmStatic fun getRegularPath(ctx: Context): String? {
         if (TextUtils.isEmpty(NAME_REGULAR)) {
             NAME_REGULAR = EnhancedHalper[ctx, FONT_PATH_REGULAR]
         }
         return NAME_REGULAR
     }
 
-    fun getBoldPath(ctx: Context): String? {
+    @JvmStatic fun getBoldPath(ctx: Context): String? {
         if (TextUtils.isEmpty(NAME_BOLD)) {
             NAME_BOLD = EnhancedHalper[ctx, FONT_PATH_BOLD]
         }
         return NAME_BOLD
     }
 
-    fun getExtraBoldPath(ctx: Context): String? {
+    @JvmStatic fun getExtraBoldPath(ctx: Context): String? {
         if (TextUtils.isEmpty(NAME_EXTRA_BOLD)) {
             NAME_EXTRA_BOLD = EnhancedHalper[ctx, FONT_PATH_EXTRA_BOLD]
         }
         return NAME_EXTRA_BOLD
     }
 
-    fun getFontType(ctx: Context, attrs: AttributeSet?): FontType {
+    @JvmStatic fun getFontType(ctx: Context, attrs: AttributeSet?): FontType {
         val a = ctx.obtainStyledAttributes(attrs, R.styleable.EnhancedView)
         return FontType.fromId(a.getInt(R.styleable.EnhancedView_cfont, 0))
     }
 
-    fun setFont(ctx: Context, v: TextView, attrs: AttributeSet?) {
+    @JvmStatic fun setFont(ctx: Context, v: TextView, attrs: AttributeSet?) {
         val fontType = getFontType(ctx, attrs)
         var isFontChanged = false
         when (fontType) {
@@ -113,7 +113,7 @@ object EnhancedHalper {
         }
     }
 
-    fun setFont(v: TextView, fontType: FontType?) {
+    @JvmStatic fun setFont(v: TextView, fontType: FontType?) {
         var isFontChanged = false
         when (fontType) {
             FontType.Font_Light -> isFontChanged = setTextLight(v.context, v)
@@ -127,7 +127,8 @@ object EnhancedHalper {
         }
     }
 
-    fun setTextLight(ctx: Context, v: TextView): Boolean {
+
+    @JvmStatic fun setTextLight(ctx: Context, v: TextView): Boolean {
         return if (mFont_Light == null) {
             try {
                 mFont_Light = Typeface.createFromAsset(ctx.assets, NAME_LIGHT)
@@ -148,7 +149,7 @@ object EnhancedHalper {
         }
     }
 
-    fun setTextRegular(ctx: Context, v: TextView): Boolean {
+    @JvmStatic fun setTextRegular(ctx: Context, v: TextView): Boolean {
         return if (mFont_Regular == null) {
             try {
                 mFont_Regular = Typeface.createFromAsset(ctx.assets, NAME_REGULAR)
@@ -169,7 +170,7 @@ object EnhancedHalper {
         }
     }
 
-    fun setTextBold(ctx: Context, v: TextView): Boolean {
+    @JvmStatic fun setTextBold(ctx: Context, v: TextView): Boolean {
         return if (mFont_Bold == null) {
             try {
                 mFont_Bold = Typeface.createFromAsset(ctx.assets, NAME_BOLD)
@@ -195,7 +196,7 @@ object EnhancedHalper {
         }
     }
 
-    fun setTextExtraBold(ctx: Context, v: TextView): Boolean {
+    @JvmStatic fun setTextExtraBold(ctx: Context, v: TextView): Boolean {
         return if (mFont_ExtraBold == null) {
             try {
                 mFont_ExtraBold = Typeface.createFromAsset(ctx.assets, NAME_EXTRA_BOLD)
@@ -221,7 +222,7 @@ object EnhancedHalper {
         }
     }
 
-    fun put(ctx: Context, key: String?, value: String?) {
+    @JvmStatic fun put(ctx: Context, key: String?, value: String?) {
         val pref = ctx.getSharedPreferences(INI_FILENAME_CONFIG, Activity.MODE_PRIVATE)
         val editor = pref.edit()
         editor.putString(key, value)
@@ -237,7 +238,7 @@ object EnhancedHalper {
         }
     }
 
-    fun commit(editor: Editor) {
+    @JvmStatic fun commit(editor: Editor) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD) {
             editor.apply()
         } else {

@@ -14,7 +14,7 @@ import com.kds.just.enhancedview.EnhancedHalper
 import com.kds.just.enhancedview.EnhancedHalper.FontType
 import com.kds.just.enhancedview.R
 
-class EnhancedTextView : AppCompatTextView, EnhancedControl {
+open class EnhancedTextView : AppCompatTextView, EnhancedControl {
     var mDrawableHelper: DrawableHelper
 
     constructor(context: Context) : super(context) {

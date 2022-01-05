@@ -36,7 +36,7 @@ import android.app.Activity
 import android.content.SharedPreferences.Editor
 import android.os.Build
 
-class EnhancedEditText : AppCompatEditText, EnhancedControl {
+open class EnhancedEditText : AppCompatEditText, EnhancedControl {
     var mDrawableHelper: DrawableHelper
 
     constructor(context: Context) : super(context) {

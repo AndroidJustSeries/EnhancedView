@@ -45,10 +45,10 @@
         <attr name="isCircle" format="boolean"/>
         <attr name="roundAll" format="dimension" />
 
-        <attr name="roundTopLeft" format="dimension" />
-        <attr name="roundTopRight" format="dimension" />
-        <attr name="roundBottomLeft" format="dimension" />
-        <attr name="roundBottomRight" format="dimension" />
+        <attr name="roundTL" format="dimension" />
+        <attr name="roundTR" format="dimension" />
+        <attr name="roundBL" format="dimension" />
+        <attr name="roundBR" format="dimension" />
 
     </declare-styleable>
 
