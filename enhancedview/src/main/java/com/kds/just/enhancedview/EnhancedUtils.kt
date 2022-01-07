@@ -1,9 +1,13 @@
 package com.kds.just.enhancedview
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.Point
+import android.text.TextUtils
+import android.util.Log
 import android.util.Size
+import com.kds.just.enhancedview.view.EnhancedImageView
 
 object EnhancedUtils {
     fun dp2px(dp: Float): Int {
@@ -53,13 +57,36 @@ object EnhancedUtils {
      * @param isUpSize : 반환되는 fitScaleSize가 width와 height보다 커지는 것을 허용할지 여부
      */
     fun getFitScaleSize(width: Int, height: Int, max_width: Int, max_height: Int, isUpSize:Boolean = false): Size {
-        val wScale: Float = width.toFloat() / max_width.toFloat()
-        val hScale: Float = height.toFloat() / max_height.toFloat()
-        val scale = if (wScale > hScale) wScale else hScale
+        val wScale: Float = if (max_width > 0) width.toFloat() / max_width.toFloat() else 0f
+        val hScale: Float = if (max_height > 0) height.toFloat() / max_height.toFloat() else 0f
+        val scale = Math.max(wScale , hScale)
         if (isUpSize && scale <= 1) {
             return Size(width,height)
         } else {
             return Size((width / scale).toInt(),(height / scale).toInt())
         }
+    }
+
+    private var mIsLogging = false
+    fun setLogging(isLogging:Boolean) {
+        mIsLogging = isLogging
+    }
+
+    fun log(log:String) {
+        if (mIsLogging) {
+            Log.i("EnhancedView",log)
+        }
+    }
+
+    fun getIdString(context: Context,id:Int) : String {
+        try {
+            var name = context.getResources().getResourceName(id)
+            if (!TextUtils.isEmpty(name) && name.lastIndexOf("/") > 0) {
+                name = name.substring(name.lastIndexOf("/") + 1,name.length)
+            }
+            return name
+        } catch (e:Exception) {
+        }
+        return ""
     }
 }

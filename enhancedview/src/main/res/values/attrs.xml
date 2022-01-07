@@ -41,7 +41,6 @@
 
         <attr name="isGroup" format="boolean"/>
 
-
         <attr name="isCircle" format="boolean"/>
         <attr name="roundAll" format="dimension" />
 

@@ -8,21 +8,15 @@ import android.graphics.drawable.StateListDrawable
 import android.net.Uri
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.Log
 import android.util.Size
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.doOnAttach
+import androidx.annotation.DrawableRes
 import androidx.core.view.doOnLayout
-import androidx.core.view.doOnNextLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
@@ -41,6 +35,11 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
         const val FIT_CENTER = 1  //무조건 이미지에 맞춰서 View가 커질수 있는 한계만큰 그려줌
         const val CENTER_CROP_LARGER_HEIGHT = 2  //가로보다 세로가 큰 이미지는 Center crop함
         const val FIT_CENTER_LARGER_DRAWABLE = 3 //View보다 큰 이미지만 View에 맞추고 작은 이미지는 원본 이미지크기로 보여줌
+
+        private var mIsLogging = false
+        open fun setLogging(isLogging:Boolean) {
+            mIsLogging = isLogging
+        }
     }
 
     var mImageScaleType = NONE
@@ -48,12 +47,6 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
             field = value
             invalidate()
         }
-    var mImageUrl : String? = null
-        private set
-    var mIsScalingBaseView = 0f
-    var mResizeWidth = 0;
-    var mResizeHeight = 0;
-    var mIsOriginalImageSize = false;
 
     var normalImage : Drawable? = null
     var pressedImage : Drawable? = null
@@ -63,7 +56,7 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
     var selectedStrokeColor = Color.TRANSPARENT
 
     var isGroup = false //Radio group과 같이 같은 레벨의 그룹중 selected동작이 연동할지 여부
-    var roundBuilder = RoundBuilder()   //image round
+    lateinit var roundBuilder: RoundBuilder  //image round
     init {
         if (attrs != null) {
             val ta = context.obtainStyledAttributes(attrs, R.styleable.EnhancedView)
@@ -75,9 +68,9 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
 
             mImageScaleType = ta.getInt(R.styleable.EnhancedView_viewType, mImageScaleType)
 
-            mImageUrl = ta.getString(R.styleable.EnhancedView_imgUrl)
-            if (!TextUtils.isEmpty(mImageUrl)) {
-                setImageUrl(mImageUrl)
+            var imageUrl = ta.getString(R.styleable.EnhancedView_imgUrl)
+            if (!TextUtils.isEmpty(imageUrl)) {
+                setImageUrl(imageUrl)
             }
 
             var normal = ta.getDrawable(R.styleable.EnhancedView_imgNormal)
@@ -98,131 +91,11 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
                 setStrokeWidthSet(strokeWidth.toFloat())
             }
 
-            roundBuilder.setAttr(context,attrs)
+            roundBuilder = RoundBuilder().setAttr(context,attrs)
             doOnLayout {
-                setRound()
+                setRound(roundBuilder)
             }
         }
-    }
-
-    fun setIsScalingBaseView(isViewScaling:Float) : EnhancedImageView{
-        mIsScalingBaseView = isViewScaling
-        return this
-    }
-
-    fun setOverride(w:Int,h:Int) : EnhancedImageView {
-        mResizeWidth = w
-        mResizeHeight = h
-        return this
-    }
-
-    fun setOriginalImageSize() : EnhancedImageView {
-        mIsOriginalImageSize = true
-        return this
-    }
-
-    fun isResize(): Boolean {
-        return mIsScalingBaseView > 0f || mResizeWidth > 0 && mResizeHeight > 0
-    }
-
-    /**
-     * 외부 네트워크로부터 이미지 로딩
-     * @param imageSize original image size
-     */
-    fun setImageUrl(url:String?, imageSize: Size? = null) : EnhancedImageView {
-        mImageUrl = url
-        if (TextUtils.isEmpty(mImageUrl)) {
-            setImageDrawable(null)
-            return this
-        }
-
-        if (isResize() && imageSize == null) {
-            Glide.with(this)
-                .asFile()
-                .load(url)
-                .skipMemoryCache(true)
-                .into(object : CustomTarget<File>() {
-                    override fun onResourceReady(resource: File, transition: Transition<in File>?) {
-                        val options = BitmapFactory.Options()
-                        options.inJustDecodeBounds = true
-                        BitmapFactory.decodeFile(resource.path, options)
-                        val imageWidth = options.outWidth
-                        val imageHeight = options.outHeight
-                        setImageUrl(url,Size(imageWidth,imageHeight))
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                    }
-
-                })
-        } else {
-            if (width == 0) {
-                doOnLayout {
-                    if (width > 0 || height > 0) {
-                        loadImageUrl(imageSize)
-                    }
-                }
-            } else {
-                loadImageUrl(imageSize)
-            }
-        }
-        return this
-    }
-
-    fun removeImage() {
-        if (mImageUrl != null) {
-            mImageUrl = null
-            setImageDrawable(null)
-            setImageSelector(normalImage,pressedImage,selectedImage)
-        }
-    }
-
-    /**
-     * Glide의 RequestManager를 등록하여 사용한다.
-     */
-    private var mGlideRequestManager: RequestManager? = null
-    fun setGlide(glide:RequestManager?) {
-        mGlideRequestManager = glide
-    }
-
-    /**
-     * Glide를 통한 image load
-     */
-    private fun loadImageUrl(imageSize: Size? = null) {
-        var glide: RequestManager? = mGlideRequestManager
-        if (glide == null) {
-            glide = Glide.with(this)
-        }
-        var builder = glide.load(mImageUrl).transition(DrawableTransitionOptions.withCrossFade())
-        if (mIsScalingBaseView > 0f) {
-            builder.override((width * mIsScalingBaseView).toInt(),(height * mIsScalingBaseView).toInt())
-        } else if (imageSize != null && mResizeWidth > 0 && mResizeHeight > 0) {
-            var overrideSize = EnhancedUtils.getFitScaleSize(imageSize.width,imageSize.height,mResizeWidth,mResizeHeight)
-            builder.override(overrideSize.width,overrideSize.height)
-        } else if (mIsOriginalImageSize){
-            builder.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-        }
-
-        builder.listener(object : RequestListener<Drawable> {
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                if (mStateListDrawable != null) {
-                    if (normalImage != null) {
-                        mStateListDrawable!!.addState(intArrayOf(), normalImage)
-                    }
-                    setImageDrawable(mStateListDrawable)
-                }
-                return false
-            }
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                if (mStateListDrawable != null) {
-                    mStateListDrawable!!.addState(intArrayOf(), resource)
-                    setImageDrawable(mStateListDrawable)
-                    return true
-                }
-                return false
-            }
-        })
-        builder.into(this)
     }
 
     var mStateListDrawable : StateListDrawable? = null
@@ -240,10 +113,10 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
         } else if (selectedImage != null) {
             mStateListDrawable!!.addState(intArrayOf(android.R.attr.state_pressed), selectedImage)
         }
-        if (TextUtils.isEmpty(mImageUrl) && normalImage != null) {
+        if (mImageUrl == null && normalImage != null) {
             mStateListDrawable!!.addState(intArrayOf(), normalImage)
         }
-        if (TextUtils.isEmpty(mImageUrl)) {
+        if (mImageUrl == null) {
             setImageDrawable(mStateListDrawable)
         }
     }
@@ -297,11 +170,227 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
         drawStrokeN(canvas!!)
     }
 
+    //------------------------- Image Load ------------------------------
+    var mImageUrl : Uri? = null
+        private set
+    var mImageScaleBaseView = 0f
+    var mResizeWidth = 0;
+    var mResizeHeight = 0;
+    var mIsOriginalImageSize = false;
+
+    var mImageFadeAnimation = true   //Image Show animation
+    var mIsImageCenterCrop = false
+    var mErrorImgRes : Int? = null
+
+    fun setImageScaleBaseView(isViewScaling:Float) : EnhancedImageView{
+        mImageScaleBaseView = isViewScaling
+        return this
+    }
+
+    fun setImageOverride(w:Int,h:Int) : EnhancedImageView {
+        mResizeWidth = w
+        mResizeHeight = h
+        return this
+    }
+
+    fun setImageOriginalSize() : EnhancedImageView {
+        mIsOriginalImageSize = true
+        return this
+    }
+
+    fun isResize(): Boolean {
+        return mImageScaleBaseView > 0f || mResizeWidth > 0 && mResizeHeight > 0
+    }
+
+    fun setImageFade(fade:Boolean) : EnhancedImageView {
+        mImageFadeAnimation = fade
+        return this
+    }
+
+    fun centerCrop(isCenterCrop:Boolean) : EnhancedImageView {
+        mIsImageCenterCrop = isCenterCrop
+        return this
+    }
+
+    fun error(@DrawableRes res:Int) : EnhancedImageView {
+        mErrorImgRes = res
+        return this
+    }
+    var mIsSkipMemoryCache = false
+    var mDiskCache : DiskCacheStrategy? = null
+    fun skipMemoryCache(skipMemoryCache:Boolean) : EnhancedImageView {
+        mIsSkipMemoryCache = skipMemoryCache
+        return this
+    }
+
+    fun setImageDiskCache(diskCache:DiskCacheStrategy) : EnhancedImageView {
+        mDiskCache = diskCache
+        return this
+    }
+
+    /**
+     * 외부 네트워크로부터 이미지 로딩
+     * @param imageSize original image size
+     */
+    fun setImageUrl(url:String?, imageSize: Size? = null) { setImageUrl(Uri.parse(url),imageSize) }
+    fun setImageUrl(url:Uri?, imageSize: Size? = null) : EnhancedImageView {
+        mImageUrl = url
+        if (mImageUrl == null) {
+            removeImage()
+            return this
+        }
+
+        if (isResize() && imageSize == null) {
+            if ("file".equals(mImageUrl!!.scheme)) {
+                val options = BitmapFactory.Options()
+                options.inJustDecodeBounds = true
+                BitmapFactory.decodeFile(mImageUrl!!.path, options)
+                val imageWidth = options.outWidth
+                val imageHeight = options.outHeight
+                setImageUrl(url,Size(imageWidth,imageHeight))
+            } else {
+                Glide().asFile()
+                    .load(url)
+                    .skipMemoryCache(true)
+                    .into(object : CustomTarget<File>() {
+                        override fun onResourceReady(resource: File, transition: Transition<in File>?) {
+                            val options = BitmapFactory.Options()
+                            options.inJustDecodeBounds = true
+                            BitmapFactory.decodeFile(resource.path, options)
+                            val imageWidth = options.outWidth
+                            val imageHeight = options.outHeight
+                            setImageUrl(url,Size(imageWidth,imageHeight))
+                        }
+
+                        override fun onLoadCleared(placeholder: Drawable?) {
+                        }
+
+                    })
+            }
+        } else {
+            if (width == 0) {
+                doOnLayout {
+                    if (width > 0 || height > 0) {
+                        loadImageUrl(imageSize)
+                    }
+                }
+            } else {
+                loadImageUrl(imageSize)
+            }
+        }
+        return this
+    }
+
+    fun removeImage() {
+        if (mImageUrl != null) {
+            mImageUrl = null
+            setImageDrawable(null)
+            setImageSelector(normalImage,pressedImage,selectedImage)
+        }
+    }
+
+    /**
+     * Glide의 RequestManager를 등록하여 사용한다.
+     */
+    private var mGlideRequestManager: RequestManager? = null
+    fun setGlide(glide:RequestManager?) : EnhancedImageView {
+        mGlideRequestManager = glide
+        return this
+    }
+
+    fun Glide() : RequestManager {
+        if (mGlideRequestManager == null) {
+            mGlideRequestManager = Glide.with(this)
+        }
+        return mGlideRequestManager!!
+    }
+    /**
+     * Glide를 통한 image load
+     */
+    private fun loadImageUrl(imageSize: Size? = null) {
+        var glide: RequestManager? = mGlideRequestManager
+        if (glide == null) {
+            glide = Glide.with(this)
+        }
+        var builder = glide.load(mImageUrl)
+        if (mImageFadeAnimation) {
+            builder.transition(DrawableTransitionOptions.withCrossFade())
+        }
+        if (mImageScaleBaseView > 0f) {
+            var overrideW = (width * mImageScaleBaseView).toInt()
+            var overrideH = (height * mImageScaleBaseView).toInt()
+            if (imageSize != null && (overrideW == 0 || overrideH == 0)) {
+                var overrideSize = EnhancedUtils.getFitScaleSize(imageSize.width,imageSize.height,width,height)
+                overrideW = (overrideSize.width * mImageScaleBaseView).toInt()
+                overrideH = (overrideSize.height * mImageScaleBaseView).toInt()
+            }
+            if (imageSize == null || (overrideW * overrideH) < (imageSize.width * imageSize.height)) {
+                builder.override(overrideW,overrideH)
+                EnhancedUtils.log("${getIdName()} >> loadImageUrl ImageScaleBaseView[$mImageScaleBaseView] ViewSize[$width,$height] image[${imageSize?.width},${imageSize?.height}] override[$overrideW,$overrideH]")
+            } else {
+                builder.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                EnhancedUtils.log("${getIdName()} >> loadImageUrl ImageScaleBaseView[$mImageScaleBaseView] ViewSize[$width,$height] image[${imageSize?.width},${imageSize?.height}] not override")
+            }
+        } else if (imageSize != null && mResizeWidth > 0 && mResizeHeight > 0) {
+            var overrideSize = EnhancedUtils.getFitScaleSize(imageSize.width,imageSize.height,mResizeWidth,mResizeHeight)
+            builder.override(overrideSize.width,overrideSize.height)
+            EnhancedUtils.log("${getIdName()} >> loadImageUrl image[${imageSize.width},${imageSize.height}] resize[$mResizeWidth,$mResizeHeight] override[${overrideSize.width},${overrideSize.height}]")
+        } else if (mIsOriginalImageSize){
+            builder.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+            EnhancedUtils.log("${getIdName()} >> loadImageUrl ViewSize[$width,$height]")
+        }
+
+        if (mIsImageCenterCrop) {
+            builder.centerCrop()
+        }
+
+        if (mErrorImgRes != null) {
+            builder.error(mErrorImgRes)
+        }
+
+        if (mIsSkipMemoryCache) {
+            builder.skipMemoryCache(true)
+        }
+
+        if (mDiskCache != null) {
+            builder.diskCacheStrategy(mDiskCache!!)
+        }
+
+        builder.listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                EnhancedUtils.log("${getIdName()} >> ImageDownload onLoadFailed")
+                if (mStateListDrawable != null) {
+                    if (normalImage != null) {
+                        mStateListDrawable!!.addState(intArrayOf(), normalImage)
+                    }
+                    setImageDrawable(mStateListDrawable)
+                }
+                return false
+            }
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                EnhancedUtils.log("${getIdName()} >> ImageDownload onResourceReady imageSize[${resource?.intrinsicWidth},${resource?.intrinsicHeight}]")
+                if (mStateListDrawable != null) {
+                    mStateListDrawable!!.addState(intArrayOf(), resource)
+                    setImageDrawable(mStateListDrawable)
+                    return true
+                }
+                return false
+            }
+        })
+        builder.into(this)
+    }
+
     //------------------------- Round Corner ------------------------------
+
+    fun circleCrop() : EnhancedImageView {
+        setRound(RoundBuilder(isCircle = true))
+        return this
+    }
+
     class RoundBuilder(var isCircle:Boolean = false, var allCorner:Float = 0f,
                        var topLeft:Float = 0f, var topRight:Float = 0f, var bottomLeft:Float = 0f, var bottomRight:Float = 0f) {
         var maxCorner = 1f
-        fun setAttr(context: Context, attrs: AttributeSet?) {
+        fun setAttr(context: Context, attrs: AttributeSet?) : RoundBuilder {
             val ta = context.obtainStyledAttributes(attrs, R.styleable.EnhancedView)
             isCircle = ta.getBoolean(R.styleable.EnhancedView_isCircle, false)
             allCorner = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundAll, 0).toFloat()
@@ -310,21 +399,18 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
             topRight = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundTR, 0).toFloat()
             bottomLeft = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundBL, 0).toFloat()
             bottomRight = ta.getDimensionPixelSize(R.styleable.EnhancedView_roundBR, 0).toFloat()
+            return this
         }
 
-        fun build(width:Int, height:Int) : ShapeAppearanceModel? {
-            var build : ShapeAppearanceModel? = null
+        fun build(width:Int, height:Int) : ShapeAppearanceModel {
+            var builder = ShapeAppearanceModel.builder()
             if (isCircle) {
-                var builder = ShapeAppearanceModel.builder()
-                build = builder.setAllCornerSizes(RelativeCornerSize(0.5f)).build()
+                builder.setAllCornerSizes(RelativeCornerSize(0.5f))
             } else if (allCorner > 0) {
-                var builder = ShapeAppearanceModel.builder()
                 allCorner = getMinViewSize(allCorner,width,height)
-                build = builder.setAllCornerSizes(AbsoluteCornerSize(allCorner)).build()
+                builder.setAllCornerSizes(AbsoluteCornerSize(allCorner))
                 maxCorner = allCorner
-
-            } else if (topLeft > 0 || topRight > 0 || bottomLeft > 0 || bottomRight > 0){
-                var builder = ShapeAppearanceModel.builder()
+            } else if (topLeft > 0 || topRight > 0 || bottomLeft > 0 || bottomRight > 0) {
                 maxCorner = topLeft
                 if (topLeft > 0) {
                     topLeft = getMinViewSize(topLeft,width,height)
@@ -351,10 +437,8 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
                         maxCorner = bottomRight
                     }
                 }
-                build = builder.build()
-
             }
-            return build
+            return builder.build()
         }
 
         fun getMinViewSize(value:Float,width:Int,height:Int) : Float {
@@ -382,25 +466,19 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
         }
     }
 
-    fun setAllCornor(cornor:Float) {
-        roundBuilder.allCorner = cornor
-        setRound()
+    fun setAllCornor(cornor:Float) : EnhancedImageView {
+        setRound(RoundBuilder(allCorner = cornor))
+        return this
     }
 
     fun setCornor(topLeft:Float = roundBuilder.topLeft,topRight:Float = roundBuilder.topRight,
                      bottomLeft:Float = roundBuilder.bottomLeft,bottomRight:Float = roundBuilder.bottomRight) {
-        roundBuilder.allCorner = 0f
-        roundBuilder.topLeft = topLeft
-        roundBuilder.topRight = topRight
-        roundBuilder.bottomLeft = bottomLeft
-        roundBuilder.bottomRight = bottomRight
-        setRound()
+        setRound(RoundBuilder(topLeft = topLeft,topRight = topRight,bottomLeft = bottomLeft,bottomRight = bottomRight))
     }
-    fun setRound() {
-        var builder : ShapeAppearanceModel? = roundBuilder.build(width,height)
-        if (builder != null) {
-            shapeAppearanceModel = builder
-        }
+
+    private fun setRound(builder:RoundBuilder) {
+        roundBuilder = builder
+        shapeAppearanceModel = roundBuilder.build(width,height)
     }
 
 
@@ -448,8 +526,8 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
 
     var offset = 1f
 
-    fun getIdString() : String? {
-        var name5: String? = getResources().getResourceName(id);
-        return name5
+    //------------------------------------------------------------------------
+    fun getIdName() : String {
+        return EnhancedUtils.getIdString(context,id)
     }
 }
