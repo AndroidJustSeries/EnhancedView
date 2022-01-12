@@ -232,11 +232,14 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
      * 외부 네트워크로부터 이미지 로딩
      * @param imageSize original image size
      */
-    fun setImageUrl(url:String?, imageSize: Size? = null) { setImageUrl(Uri.parse(url),imageSize) }
+    fun setImageUrl(url:String?, imageSize: Size? = null) { setImageUrl(if (TextUtils.isEmpty(url)) null else Uri.parse(url),imageSize) }
     fun setImageUrl(url:Uri?, imageSize: Size? = null) : EnhancedImageView {
         mImageUrl = url
         if (mImageUrl == null) {
             removeImage()
+            if(mErrorImgRes != null) {
+                Glide().load(mErrorImgRes).into(this)
+            }
             return this
         }
 
