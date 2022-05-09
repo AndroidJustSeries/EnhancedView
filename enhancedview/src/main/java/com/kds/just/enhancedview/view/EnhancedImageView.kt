@@ -540,6 +540,9 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
 
     //------------------------------------------------------------------------
     fun getIdName() : String {
+        if (id == -1) {
+            return "[ID Empty]"
+        }
         return EnhancedUtils.getIdString(context,id)
     }
 }
