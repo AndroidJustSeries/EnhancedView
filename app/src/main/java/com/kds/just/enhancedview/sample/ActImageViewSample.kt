@@ -73,7 +73,7 @@ class ActImageViewSample : AppCompatActivity(), View.OnClickListener {
         } else if (v == binding.selectImage2) {
             (v as EnhancedImageView).setGroupSelected(true)
         } else if (v == binding.btnImageBg) {
-            if (TextUtils.isEmpty(binding.selectImage0.mImageUrl)) {
+            if (binding.selectImage0.mImageUrl == null) {
                 binding.selectImage0.setImageUrl("https://c8.alamy.com/comp/EJWNX5/home-alone-movie-poster-EJWNX5.jpg")
                 binding.selectImage1.setImageUrl("https://c8.alamy.com/comp/EJWNX5/home-alone-movie-poster-EJWNX5.jpg")
                 binding.selectImage2.setImageUrl("https://c8.alamy.com/comp/EJWNX5/home-alone-movie-poster-EJWNX5.jpg")
@@ -201,14 +201,9 @@ class ActImageViewSample : AppCompatActivity(), View.OnClickListener {
     }
 
     fun loadImage(type:Int,url:String) : EnhancedImageView {
-        var imageview = EnhancedImageView(this)
-        if (type == 0) {    //NORMAL
-        } else if (type == 1) { //ViewScale
-            imageview.setIsScalingBaseView(0.5f)
-        } else if (type == 2) { //fixed Size
-            imageview.setOverride(30,30)
-        }
+        val imageview = EnhancedImageView(this)
         imageview.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
-        return imageview.setImageUrl(url)
+        imageview.setImageUrl(url)
+        return imageview
     }
 }

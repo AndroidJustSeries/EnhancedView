@@ -8,6 +8,7 @@ import android.graphics.drawable.StateListDrawable
 import android.net.Uri
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.util.Size
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
@@ -27,6 +28,8 @@ import com.google.android.material.shape.*
 import com.kds.just.enhancedview.EnhancedUtils
 import com.kds.just.enhancedview.R
 import java.io.File
+import java.io.PrintWriter
+import java.io.StringWriter
 
 
 open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : ShapeableImageView(context, attrs) {
@@ -166,8 +169,14 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
     }
 
     override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        drawStrokeN(canvas!!)
+        try {
+            super.onDraw(canvas)
+            drawStrokeN(canvas!!)
+        } catch (e:Exception) {
+            val sw = StringWriter()
+            e.printStackTrace(PrintWriter(sw))
+            Log.e("ERROR", "Canvas Exception\n$sw");
+        }
     }
 
     //------------------------- Image Load ------------------------------
