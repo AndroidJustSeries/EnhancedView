@@ -18,29 +18,26 @@ class ActMain : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View) {
         val id = v.id
-        if (id == R.id.sample_enhanced_imageview) {
-            val intent = Intent(this, ActImageViewSample::class.java)
-            startActivity(intent)
-        } else if (id == R.id.sample_enhanced_scale_imageview) {
-            val intent = Intent(this, ActImageViewScaleSample::class.java)
-            startActivity(intent)
-        } else if (id == R.id.sample_enhanced_textview) {
-            val intent = Intent(this, SampleEnhancedView::class.java)
-            startActivity(intent)
-        } else if (id == R.id.sample_enhanced_edittext) {
-            val intent = Intent(this, SampleEnhancedView::class.java)
-            intent.putExtra(
-                SampleEnhancedView.EXTRA_VIEW_TYPE,
-                SampleEnhancedView.TYPE_EDITTEXT
-            )
-            startActivity(intent)
-        } else if (id == R.id.sample_enhanced_checkbox) {
-            val intent = Intent(this, SampleEnhancedView::class.java)
-            intent.putExtra(
-                SampleEnhancedView.EXTRA_VIEW_TYPE,
-                SampleEnhancedView.TYPE_CHECKBOX
-            )
-            startActivity(intent)
+        when (id) {
+            R.id.sample_enhanced_imageview -> startActivity(Intent(this, ActImageViewSample::class.java))
+            R.id.sample_enhanced_scale_imageview -> startActivity(Intent(this, ActImageViewScaleSample::class.java))
+            R.id.sample_enhanced_textview -> startActivity(Intent(this, SampleEnhancedView::class.java))
+            R.id.sample_enhanced_edittext -> {
+                val intent = Intent(this, SampleEnhancedView::class.java)
+                intent.putExtra(
+                    SampleEnhancedView.EXTRA_VIEW_TYPE,
+                    SampleEnhancedView.TYPE_EDITTEXT
+                )
+                startActivity(intent)
+            }
+            R.id.sample_enhanced_checkbox -> {
+                val intent = Intent(this, SampleEnhancedView::class.java)
+                intent.putExtra(
+                    SampleEnhancedView.EXTRA_VIEW_TYPE,
+                    SampleEnhancedView.TYPE_CHECKBOX
+                )
+                startActivity(intent)
+            }
         }
     }
 }

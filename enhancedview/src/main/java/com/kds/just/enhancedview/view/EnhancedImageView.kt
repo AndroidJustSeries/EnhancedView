@@ -469,7 +469,7 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
             if (isCircle) {
                 return 1f
             }
-            var offset = stroke / maxCorner
+            val offset = stroke / maxCorner
             var interpolator = Math.max(1f - maxCorner/width + offset,1f - maxCorner/height + offset)
             if (interpolator > 1f) {
                 interpolator = 1f
@@ -535,8 +535,6 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
             canvas.drawPath(path!!, mBGSelectStrokePaint!!)
         }
     }
-
-    var offset = 1f
 
     //------------------------------------------------------------------------
     fun getIdName() : String {
