@@ -5,11 +5,11 @@ plugins {
     id 'kotlin-parcelize'
 }
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.kds.just.enhancedview.sample"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 1
         versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

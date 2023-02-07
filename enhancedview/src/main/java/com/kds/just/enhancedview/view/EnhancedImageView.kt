@@ -77,10 +77,10 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
             }
 
             var normal = ta.getDrawable(R.styleable.EnhancedView_imgNormal)
-            var selected = ta.getDrawable(R.styleable.EnhancedView_imgSelect)
             var pressed = ta.getDrawable(R.styleable.EnhancedView_imgPressed)
+            var selected = ta.getDrawable(R.styleable.EnhancedView_imgSelect)
             if (normal != null || selected != null || pressed != null ) {
-                setImageSelector(normal,selected,pressed)
+                setImageSelector(normal,pressed,selected)
             }
 
             normalStrokeColor = ta.getColor(R.styleable.EnhancedView_BgStrokeColorNormal, Color.TRANSPARENT)
@@ -102,11 +102,22 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
     }
 
     var mStateListDrawable : StateListDrawable? = null
+    fun setImageNormal(normal:Drawable?) {
+        setImageSelector(normal,pressedImage,selectedImage)
+    }
+    fun setImagePressed(pressed:Drawable?) {
+        setImageSelector(normalImage,pressed,selectedImage)
+    }
+    fun setImageSelected(selected:Drawable?) {
+        setImageSelector(normalImage,pressedImage,selected)
+    }
     fun setImageSelector(normal:Drawable?,pressed:Drawable?,selected:Drawable?) {
         normalImage = normal
         pressedImage = pressed
         selectedImage = selected
-        mStateListDrawable = StateListDrawable()
+        if (mStateListDrawable == null) {
+            mStateListDrawable = StateListDrawable()
+        }
         mStateListDrawable!!.setExitFadeDuration(200)
         if (selectedImage != null) {
             mStateListDrawable!!.addState(intArrayOf(android.R.attr.state_selected ), selectedImage)
@@ -116,16 +127,17 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
         } else if (selectedImage != null) {
             mStateListDrawable!!.addState(intArrayOf(android.R.attr.state_pressed), selectedImage)
         }
+
+        //이미지가 있는경우 무조건 우선!! 이미지가 없는 경우에만 color로 normal bg를 사용
         if (mImageUrl == null && normalImage != null) {
             mStateListDrawable!!.addState(intArrayOf(), normalImage)
         }
-        if (mImageUrl == null) {
-            setImageDrawable(mStateListDrawable)
-        }
+
+        setImageDrawable(mStateListDrawable)
     }
 
     /**
-     * 같은 레벨의 View와 연동하여 Selected가 동잘할 필요가 있는 경우
+     * 같은 레벨의 View와 연동하여 Selected가 동작할 필요가 있는 경우
      * (Radio group 과 같은 동작이 필요한 경우)
      */
     fun setGroupSelected(selected: Boolean) {
@@ -320,11 +332,10 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
      * Glide를 통한 image load
      */
     private fun loadImageUrl(imageSize: Size? = null) {
-        var glide: RequestManager? = mGlideRequestManager
-        if (glide == null) {
-            glide = Glide.with(this)
+        if (isInEditMode) {
+            return
         }
-        var builder = glide.load(mImageUrl)
+        var builder = Glide().load(mImageUrl)
         if (mImageFadeAnimation) {
             builder.transition(DrawableTransitionOptions.withCrossFade())
         }

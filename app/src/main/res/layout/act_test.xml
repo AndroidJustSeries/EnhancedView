@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/testImgLayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.kds.just.enhancedview.view.EnhancedImageView
+            android:id="@+id/testImg0"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            app:imgNormal="#ff00ff"
+            app:imgPressed="#ffff00"
+            app:imgSelect="#0000ff" />
+
+        <com.kds.just.enhancedview.view.EnhancedImageView
+            android:id="@+id/testImg1"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            app:imgPressed="#ffff00"
+            app:imgSelect="#0000ff" />
+
+        <com.kds.just.enhancedview.view.EnhancedImageView
+            android:id="@+id/testImg2"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            app:imgNormal="#ff00ff"
+            app:imgSelect="#0000ff" />
+
+        <com.kds.just.enhancedview.view.EnhancedImageView
+            android:id="@+id/testImg3"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            app:imgNormal="#ff00ff"
+            app:imgPressed="#ffff00" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.kds.just.enhancedview.view.EnhancedTextView
+        android:id="@+id/testBtn0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp"
+        android:text="test"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:BgRadius="5dp"
+        app:BgStrokeColorNormal="#111111"
+        app:BgStrokeColorSelected="#727af2"
+        app:StrokeWidth="1dp"
+        app:cfont="extrabold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/testImgLayout"
+        app:textColorNormal="#111111"
+        app:textColorSelected="#2d2d2d" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

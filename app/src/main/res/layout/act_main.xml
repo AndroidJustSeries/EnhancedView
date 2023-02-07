@@ -7,7 +7,29 @@
     android:orientation="vertical">
 
     <com.kds.just.enhancedview.view.EnhancedTextView
-        android:id="@+id/sample_enhanced_imageview"
+        android:id="@+id/sampleEnhancedImageTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp"
+        android:text="EnhancedImageTest"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:BgRadius="5dp"
+        app:BgStrokeColorNormal="#111111"
+        app:BgStrokeColorSelected="#727af2"
+        app:StrokeWidth="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textColorNormal="#111111"
+        app:textColorSelected="#2d2d2d" />
+
+    <com.kds.just.enhancedview.view.EnhancedTextView
+        android:id="@+id/sampleEnhancedImageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -30,7 +52,7 @@
         app:textColorSelected="#2d2d2d" />
 
     <com.kds.just.enhancedview.view.EnhancedTextView
-        android:id="@+id/sample_enhanced_scale_imageview"
+        android:id="@+id/sampleEnhancedScaleImageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -53,7 +75,7 @@
         app:textColorSelected="#2d2d2d" />
 
     <com.kds.just.enhancedview.view.EnhancedTextView
-        android:id="@+id/sample_enhanced_textview"
+        android:id="@+id/sampleEnhancedTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -76,7 +98,7 @@
         app:textColorSelected="#2d2d2d" />
 
     <com.kds.just.enhancedview.view.EnhancedTextView
-        android:id="@+id/sample_enhanced_edittext"
+        android:id="@+id/sampleEnhancedEdittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -98,7 +120,7 @@
         app:textColorSelected="#2d2d2d" />
 
     <com.kds.just.enhancedview.view.EnhancedTextView
-        android:id="@+id/sample_enhanced_checkbox"
+        android:id="@+id/sampleEnhancedCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dp"
@@ -118,4 +140,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:textColorNormal="#111111"
         app:textColorSelected="#2d2d2d" />
+
+
 </LinearLayout>

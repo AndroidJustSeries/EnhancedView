@@ -14,6 +14,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import android.content.res.Resources
+import android.graphics.drawable.ColorDrawable
 import android.text.TextUtils
 import android.util.Log
 import android.view.ViewGroup
@@ -106,11 +107,19 @@ class ActImageViewSample : AppCompatActivity(), View.OnClickListener {
             override fun onColorSelected(dialogId: Int, color: Int) {
                 if (v == binding.btnNormalBg) {
                     binding.btnNormalBg.setBackgroundColor(color)
-                    binding.selectImage2
+                    binding.selectImage0.setImageNormal(ColorDrawable(color))
+                    binding.selectImage1.setImageNormal(ColorDrawable(color))
+                    binding.selectImage2.setImageNormal(ColorDrawable(color))
                 } else if (v == binding.btnPressedBg) {
                     binding.btnPressedBg.setBackgroundColor(color)
+                    binding.selectImage0.setImagePressed(ColorDrawable(color))
+                    binding.selectImage1.setImagePressed(ColorDrawable(color))
+                    binding.selectImage2.setImagePressed(ColorDrawable(color))
                 } else if (v == binding.btnSelectedBg) {
                     binding.btnSelectedBg.setBackgroundColor(color)
+                    binding.selectImage0.setImageSelected(ColorDrawable(color))
+                    binding.selectImage1.setImageSelected(ColorDrawable(color))
+                    binding.selectImage2.setImageSelected(ColorDrawable(color))
                 } else if (v == binding.btnNormalStroke) {
                     binding.btnNormalStroke.setBackgroundColor(color)
                     binding.selectImage0.setStrokeColorSet(binding.selectImage0.normalStrokeColor,color)

@@ -17,12 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SampleEnhancedView">
-        </activity>
-        <activity android:name=".ActImageViewSample">
-        </activity>
-        <activity android:name=".ActImageViewScaleSample">
-        </activity>
+        <activity android:name=".SampleEnhancedView"/>
+        <activity android:name=".ActImageViewSample"/>
+        <activity android:name=".ActImageViewScaleSample"/>
+        <activity android:name=".ActTest"/>
     </application>
 
 </manifest>
