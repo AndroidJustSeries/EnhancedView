@@ -115,9 +115,7 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
         normalImage = normal
         pressedImage = pressed
         selectedImage = selected
-        if (mStateListDrawable == null) {
-            mStateListDrawable = StateListDrawable()
-        }
+        mStateListDrawable = StateListDrawable()
         mStateListDrawable!!.setExitFadeDuration(200)
         if (selectedImage != null) {
             mStateListDrawable!!.addState(intArrayOf(android.R.attr.state_selected ), selectedImage)
@@ -128,10 +126,8 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
             mStateListDrawable!!.addState(intArrayOf(android.R.attr.state_pressed), selectedImage)
         }
 
-        //이미지가 있는경우 무조건 우선!! 이미지가 없는 경우에만 color로 normal bg를 사용
-        if (mImageUrl == null && normalImage != null) {
-            mStateListDrawable!!.addState(intArrayOf(), normalImage)
-        }
+        //Picture유무와 관계없이 설정된 normalImage가 동작하도록 코드 변경
+        mStateListDrawable!!.addState(intArrayOf(), normalImage)
 
         setImageDrawable(mStateListDrawable)
     }
@@ -308,7 +304,6 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
     fun removeImage() {
         if (mImageUrl != null) {
             mImageUrl = null
-            setImageDrawable(null)
             setImageSelector(normalImage,pressedImage,selectedImage)
         }
     }
@@ -383,21 +378,18 @@ open class EnhancedImageView(context: Context, attrs: AttributeSet? = null) : Sh
             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                 EnhancedUtils.log("${getIdName()} >> ImageDownload onLoadFailed")
                 if (mStateListDrawable != null) {
-                    if (normalImage != null) {
-                        mStateListDrawable!!.addState(intArrayOf(), normalImage)
-                    }
-                    setImageDrawable(mStateListDrawable)
+                    setImageNormal(normalImage)
                 }
                 return false
             }
             override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                 EnhancedUtils.log("${getIdName()} >> ImageDownload onResourceReady imageSize[${resource?.intrinsicWidth},${resource?.intrinsicHeight}]")
                 if (mStateListDrawable != null) {
-                    mStateListDrawable!!.addState(intArrayOf(), resource)
-                    setImageDrawable(mStateListDrawable)
-                    return true
+                    setImageNormal(resource)
+                } else {
+                    setImageDrawable(resource)
                 }
-                return false
+                return true
             }
         })
         builder.into(this)
